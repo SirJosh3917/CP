@@ -1,0 +1,5 @@
+c:\users\newlife.owner-pc\documents\visual studio 2013\Projects\ConsolePlus\CP\bin\Debug\CP.dll
+c:\users\newlife.owner-pc\documents\visual studio 2013\Projects\ConsolePlus\CP\bin\Debug\CP.pdb
+c:\users\newlife.owner-pc\documents\visual studio 2013\Projects\ConsolePlus\CP\obj\Debug\CP.csprojResolveAssemblyReference.cache
+c:\users\newlife.owner-pc\documents\visual studio 2013\Projects\ConsolePlus\CP\obj\Debug\CP.dll
+c:\users\newlife.owner-pc\documents\visual studio 2013\Projects\ConsolePlus\CP\obj\Debug\CP.pdb

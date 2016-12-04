@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32.SafeHandles;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +24,9 @@ namespace CP
 			}
 			else
 			{
-				throw new Exception("Only one CDraw can be created.");
+				this.h = GeneratedCDraw.h;
+				this.buf = GeneratedCDraw.buf;
+				this.rect = GeneratedCDraw.rect;
 			}
 
 			Console.SetBufferSize(80, 25);
@@ -44,20 +46,16 @@ namespace CP
 		/// <param name="y">The y position to draw it at</param>
 		/// <param name="bmp">The bitmap to use</param>
 		/// <param name="RefreshScreen">If you want to refresh the screen. Refreshing the screen applies any changes you made so far to the screen.</param>
-		public void DrawBitmap(uint x, uint y, Bitmap bmp, bool RefreshScreen = false)
-		{
+		public void DrawBitmap( uint x, uint y, Bitmap bmp, bool RefreshScreen = false ) {
 			var _drawto = bmp._chs;
 
-			for (uint _x = x; _x < x + bmp.Width; _x++)
-				for (uint _y = y; _y < y + bmp.Height; _y++)
-				{
-					//if ((_y - y) * bmp.Height + (_x - x) > (bmp.Width * bmp.Height) - 1) return;
-
-					buf[_y * 80 + _x] = bmp._chs[(_y - y) * bmp.Width + (_x - x)];
+			for( uint _x = x; _x < x + bmp.Width; _x++ )
+				for( uint _y = y; _y < y + bmp.Height; _y++ ) {
+					if( buf.Length > ( _y * 80 + _x ) && ( _y * 80 + _x ) > -1 )
+						buf[_y * 80 + _x] = bmp._chs[( _y - y ) * bmp.Width + ( _x - x )];
 				}
 
-			if (RefreshScreen)
-			{
+			if( RefreshScreen ) {
 				Refresh();
 			}
 		}

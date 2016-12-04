@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -24,7 +24,7 @@ namespace CP
 		/// </summary>
 		/// <param name="width">Width of the bitmap</param>
 		/// <param name="height">Height of the bitmap</param>
-		public Bitmap(int width, int height)
+		public Bitmap(uint width, uint height)
 		{
 			Width = ((short)(width));
 			Height = ((short)(height));
@@ -33,12 +33,28 @@ namespace CP
 		}
 
 		/// <summary>
+		/// Draw a bitmap on the screen
+		/// </summary>
+		/// <param name="x">The x position to draw it at</param>
+		/// <param name="y">The y position to draw it at</param>
+		/// <param name="bmp">The bitmap to use</param>
+		public void DrawBitmap( uint x, uint y, Bitmap bmp ) {
+			var _drawto = bmp._chs;
+
+			for( uint _x = x; _x < x + bmp.Width; _x++ )
+				for( uint _y = y; _y < y + bmp.Height; _y++ ) {
+					if( _chs.Length > ( _y * Width + _x ) && ( _y * Width + _x ) > -1 )
+						_chs[_y * Width + _x] = bmp._chs[( _y - y ) * bmp.Width + ( _x - x )];
+				}
+		}
+
+		/// <summary>
 		/// Fill the bitmap with a color
 		/// </summary>
 		/// <param name="Color">The color to use ( e.g. 0x0a )</param>
 		public void Fill(short Color)
 		{
-			for (int i = 0; i < Width * Height; i++)
+			for (uint i = 0; i < Width * Height; i++)
 			{
 				_chs[i].Attributes = Color;
 			}
@@ -50,7 +66,7 @@ namespace CP
 		/// <param name="Text">The text to fill in with</param>
 		public void Fill(char Text)
 		{
-			for (int i = 0; i < Width * Height; i++)
+			for (uint i = 0; i < Width * Height; i++)
 			{
 				_chs[i].Char.AsciiChar = ((byte)(Text));
 			}
@@ -74,7 +90,7 @@ namespace CP
 		/// <param name="y">The y position</param>
 		/// <param name="Color">The color ( e.g. 0x0a )</param>
 		/// <param name="Charecter">The charecter to set it with</param>
-		public void SetPixel(int x, int y, short Color, char Charecter)
+		public void SetPixel(uint x, uint y, short Color, char Charecter)
 		{
 			if (y * Width + x < (Width * Height))
 			{
@@ -90,8 +106,8 @@ namespace CP
 		/// <param name="Charecter">The charecter to use</param>
 		public void Border(short Color, char Charecter)
 		{
-			for(int x = 0; x < Width; x++)
-			for(int y = 0; y < Height; y++)
+			for(uint x = 0; x < Width; x++)
+			for(uint y = 0; y < Height; y++)
 				if (x == 0 || x == Width - 1 || y == 0 || y == Height - 1)
 				{
 					_chs[y * Width + x].Attributes = Color;
@@ -105,7 +121,7 @@ namespace CP
 		/// <param name="x">The x position</param>
 		/// <param name="y">The y position</param>
 		/// <param name="Color">The color ( e.g. 0x0a )</param>
-		public void SetColor(int x, int y, short Color)
+		public void SetColor(uint x, uint y, short Color)
 		{
 			if (y * Width + x < (Width * Height))
 			{
@@ -119,7 +135,7 @@ namespace CP
 		/// <param name="x">The x position</param>
 		/// <param name="y">The y position</param>
 		/// <param name="Charecter">The charecter to set it with</param>
-		public void SetText(int x, int y, char Text)
+		public void SetText(uint x, uint y, char Text)
 		{
 			if (y * Width + x < (Width * Height))
 			{
@@ -135,10 +151,10 @@ namespace CP
 		/// <param name="_y">The y position of the text</param>
 		/// <param name="Color">The color of the text ( e.g. 0x0a )</param>
 		/// <param name="Text">The text</param>
-		public void DrawVerticalText(int _x, int _y, short Color, string Text)
+		public void DrawVerticalText(uint _x, uint _y, short Color, string Text)
 		{
-			int x = 0; x = _x;
-			int y = 0; y = _y;
+			uint x = 0; x = _x;
+			uint y = 0; y = _y;
 
 			int _index = 0;
 			while (_index < Text.Length)
@@ -166,10 +182,10 @@ namespace CP
 		/// <param name="_y">The y position of the text</param>
 		/// <param name="Color">The color of the text ( e.g. 0x0a )</param>
 		/// <param name="Text">The text</param>
-		public void DrawHorizontalText(int _x, int _y, short Color, string Text)
+		public void DrawHorizontalText(uint _x, uint _y, short Color, string Text)
 		{
-			int x = 0; x = _x;
-			int y = 0; y = _y;
+			uint x = 0; x = _x;
+			uint y = 0; y = _y;
 
 			int _index = 0;
 			while (_index < Text.Length)

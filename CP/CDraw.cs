@@ -1,4 +1,4 @@
-using Microsoft.Win32.SafeHandles;
+﻿using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,8 +15,7 @@ namespace CP
 		public static CDraw GeneratedCDraw { get; private set; }
 		private static bool _gen = false;
 
-		public CDraw()
-		{
+		public CDraw() {
 			if(!_gen)
 			{
 				GeneratedCDraw = this;
@@ -36,6 +35,7 @@ namespace CP
 			if (h.IsInvalid)
 			{
 				Console.WriteLine("h.IsInvalid is invalid. Please restart the application.");
+				throw new Exception("h.IsInvalid");
 			}
 		}
 

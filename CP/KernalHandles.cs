@@ -8,14 +8,14 @@ namespace CP
 	internal static class KernalHandle
 	{
 
-		[DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+		[DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
 		public static extern SafeFileHandle CreateFile(
 			string fileName,
 			[MarshalAs(UnmanagedType.U4)] uint fileAccess,
 			[MarshalAs(UnmanagedType.U4)] uint fileShare,
 			IntPtr securityAttributes,
 			[MarshalAs(UnmanagedType.U4)] FileMode creationDisposition,
-			[MarshalAs(UnmanagedType.U4)] int flags,
+			[MarshalAs(UnmanagedType.U4)] uint flags,
 			IntPtr template);
 
 		[DllImport("kernel32.dll", SetLastError = true)]
@@ -47,7 +47,7 @@ namespace CP
 			[FieldOffset(0)]
 			public byte AsciiChar;
 		}
-
+		
 		[StructLayout(LayoutKind.Explicit)]
 		public struct CharInfo
 		{
